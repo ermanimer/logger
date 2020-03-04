@@ -64,71 +64,45 @@ func Initialize(filename string, traceLevel int) {
 }
 
 func Debug(message string) {
-	checkInitialization()
-	if instance.traceLevel <= DebugTraceLevel {
-		instance.log(debugPrefix, message)
-	}
+	log(DebugTraceLevel, debugPrefix, message)
 }
 
 func Debugf(messageFormat string, values ...interface{}) {
-	if instance.traceLevel <= DebugTraceLevel {
-		message := fmt.Sprintf(messageFormat, values...)
-		instance.log(debugPrefix, message)
-	}
+	log(DebugTraceLevel, debugPrefix, messageFormat, values...)
 }
 
 func Info(message string) {
-	if instance.traceLevel <= InfoTraceLevel {
-		instance.log(infoPrefix, message)
-	}
+	log(InfoTraceLevel, infoPrefix, message)
 }
 
 func Infof(messageFormat string, values ...interface{}) {
-	if instance.traceLevel <= InfoTraceLevel {
-		message := fmt.Sprintf(messageFormat, values...)
-		instance.log(infoPrefix, message)
-	}
+	log(InfoTraceLevel, infoPrefix, messageFormat, values...)
 }
 
 func Warning(message string) {
-	if instance.traceLevel <= WarningTraceLevel {
-		instance.log(warningPrefix, message)
-	}
+	log(WarningTraceLevel, warningPrefix, message)
 }
 
 func Warningf(messageFormat string, values ...interface{}) {
-	if instance.traceLevel <= WarningTraceLevel {
-		message := fmt.Sprintf(messageFormat, values...)
-		instance.log(warningPrefix, message)
-	}
+	log(WarningTraceLevel, warningPrefix, messageFormat, values...)
 }
 
 func Error(message string) {
-	if instance.traceLevel <= ErrorTraceLevel {
-		instance.log(errorPrefix, message)
-	}
+	log(ErrorTraceLevel, errorPrefix, message)
 }
 
 func Errorf(messageFormat string, values ...interface{}) {
-	if instance.traceLevel <= ErrorTraceLevel {
-		message := fmt.Sprintf(messageFormat, values...)
-		instance.log(errorPrefix, message)
-	}
+	log(ErrorTraceLevel, errorPrefix, messageFormat, values...)
 }
 
 func Fatal(message string) {
-	if instance.traceLevel <= FatalTraceLevel {
-		instance.log(fatalPrefix, message)
-		os.Exit(1)
-	}
+	log(FatalTraceLevel, fatalPrefix, message)
+	os.Exit(1)
 }
 
 func Fatalf(messageFormat string, values ...interface{}) {
-	if instance.traceLevel <= FatalTraceLevel {
-		message := fmt.Sprintf(messageFormat, values...)
-		instance.log(fatalPrefix, message)
-		os.Exit(1)
-	}
+	log(FatalTraceLevel, fatalPrefix, messageFormat, values...)
+	os.Exit(1)
 }
 
 func checkInitialization() {
@@ -142,12 +116,21 @@ func checkInitialization() {
 	}
 }
 
-func (instance *logger) log(prefix string, message string) {
+func log(traceLevel int, prefix string, messageFormat string, values ...interface{}) {
+	//check initialization
+	checkInitialization()
+
+	//check trace level
+	if instance.traceLevel > traceLevel {
+		return
+	}
+
 	//synchronization
 	instance.mutex.Lock()
 	defer instance.mutex.Unlock()
 
 	//create formatted message
+	message := fmt.Sprintf(messageFormat, values...)
 	formattedMessage := fmt.Sprintf("[%s][%s]: %s%s", time.Now().Format(timeFormat), prefix, message, newLine)
 
 	//open log file
