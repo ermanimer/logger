@@ -1,7 +1,7 @@
 # logger
 Go logger
 
-[![Build Status](https://travis-ci.org/ermanimer/logger.svg?branch=master)](https://travis-ci.org/ermanimer/logger)
+![Go](https://github.com/ermanimer/logger/workflows/Go/badge.svg)
 
 ## Features
 logger writes logs to a file.
