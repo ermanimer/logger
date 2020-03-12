@@ -3,6 +3,7 @@ package log
 import (
 	"fmt"
 	"os"
+	"strings"
 	"sync"
 	"time"
 )
@@ -131,6 +132,7 @@ func log(traceLevel int, prefix string, messageFormat string, values ...interfac
 
 	//create formatted message
 	message := fmt.Sprintf(messageFormat, values...)
+	message = strings.Replace(message, newLine, " ", -1)
 	formattedMessage := fmt.Sprintf("[%s][%s]: %s%s", time.Now().Format(timeFormat), prefix, message, newLine)
 
 	//open log file
