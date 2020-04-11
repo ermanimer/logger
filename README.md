@@ -96,4 +96,4 @@ func main() {
 ```
 
 ## Terminal Output With [log-viewer](https://github.com/ermanimer/log-viewer)
-![Terminal Output](/images/terminal_output_with_log-viewer.png)
+![Terminal Output](/images/terminal_output.png)
