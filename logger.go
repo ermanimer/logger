@@ -43,7 +43,7 @@ const (
 
 //default filename and default trace level
 const (
-	defaultFileName   = "logs"
+	defaultFilename   = "default.log"
 	defaultTraceLevel = DebugTraceLevel
 )
 
@@ -110,7 +110,7 @@ func checkInitialization() {
 	if instance == nil {
 		//create instance with default parameters
 		instance = &logger{
-			filename:   defaultFileName,
+			filename:   defaultFilename,
 			traceLevel: defaultTraceLevel,
 			mutex:      &sync.Mutex{},
 		}
