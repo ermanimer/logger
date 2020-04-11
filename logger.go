@@ -64,40 +64,45 @@ func Initialize(filename string, traceLevel int) {
 	}
 }
 
-func Debug(message string) {
-	log(DebugTraceLevel, debugPrefix, message)
+func Debug(values ...interface{}) {
+	messageFormat := createMessageFormat(values...)
+	log(DebugTraceLevel, debugPrefix, messageFormat, values...)
 }
 
 func Debugf(messageFormat string, values ...interface{}) {
 	log(DebugTraceLevel, debugPrefix, messageFormat, values...)
 }
 
-func Info(message string) {
-	log(InfoTraceLevel, infoPrefix, message)
+func Info(values ...interface{}) {
+	messageFormat := createMessageFormat(values...)
+	log(InfoTraceLevel, infoPrefix, messageFormat, values...)
 }
 
 func Infof(messageFormat string, values ...interface{}) {
 	log(InfoTraceLevel, infoPrefix, messageFormat, values...)
 }
 
-func Warning(message string) {
-	log(WarningTraceLevel, warningPrefix, message)
+func Warning(values ...interface{}) {
+	messageFormat := createMessageFormat(values...)
+	log(WarningTraceLevel, warningPrefix, messageFormat, values...)
 }
 
 func Warningf(messageFormat string, values ...interface{}) {
 	log(WarningTraceLevel, warningPrefix, messageFormat, values...)
 }
 
-func Error(message string) {
-	log(ErrorTraceLevel, errorPrefix, message)
+func Error(values ...interface{}) {
+	messageFormat := createMessageFormat(values...)
+	log(ErrorTraceLevel, errorPrefix, messageFormat, values...)
 }
 
 func Errorf(messageFormat string, values ...interface{}) {
 	log(ErrorTraceLevel, errorPrefix, messageFormat, values...)
 }
 
-func Fatal(message string) {
-	log(FatalTraceLevel, fatalPrefix, message)
+func Fatal(values ...interface{}) {
+	messageFormat := createMessageFormat(values...)
+	log(FatalTraceLevel, fatalPrefix, messageFormat, values...)
 	os.Exit(1)
 }
 
@@ -117,26 +122,30 @@ func checkInitialization() {
 	}
 }
 
+func createMessageFormat(values ...interface{}) string {
+	//create message format
+	messageFormat := strings.Repeat("%v, ", len(values))
+	//trim last coma and white space
+	messageFormat = strings.Trim(messageFormat, ", ")
+	return messageFormat
+}
+
 func log(traceLevel int, prefix string, messageFormat string, values ...interface{}) {
 	//check initialization
 	checkInitialization()
-
 	//check trace level
 	if instance.traceLevel > traceLevel {
 		return
 	}
-
 	//synchronization
 	instance.mutex.Lock()
 	defer instance.mutex.Unlock()
-
 	//create message
 	message := fmt.Sprintf(messageFormat, values...)
 	//replace new line characters with white spaces
 	message = strings.Replace(message, newLine, " ", -1)
 	//create formatted message
-	formattedMessage := fmt.Sprintf("[%s][%s]: %s%s", time.Now().Format(timeFormat), prefix, message, newLine)
-
+	message = fmt.Sprintf("[%s][%s]: %s%s", time.Now().Format(timeFormat), prefix, message, newLine)
 	//open log file
 	logFile, err := os.OpenFile(instance.filename, os.O_CREATE|os.O_WRONLY|os.O_APPEND, fileMode)
 	if err != nil {
@@ -149,9 +158,8 @@ func log(traceLevel int, prefix string, messageFormat string, values ...interfac
 			printError("Closing log file failed!")
 		}
 	}()
-
 	//write to log file
-	_, err = logFile.WriteString(formattedMessage)
+	_, err = logFile.WriteString(message)
 	if err != nil {
 		printError("Writing to log file failed!")
 	}
