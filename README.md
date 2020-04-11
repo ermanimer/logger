@@ -4,7 +4,7 @@ Go logger
 ![Go](https://github.com/ermanimer/logger/workflows/Go/badge.svg)
 
 ## Features
-logger writes logs to a file.
+logger writes logs safely to specified log file. Use [log-viewer](https://github.com/ermanimer/log-viewer) for best viewing experince.
 
 ## Installation
 ```bash
@@ -45,10 +45,10 @@ go get -u github.com/ermanimer/logger
 | fileMode | 0644  | File mode (rw-r--r--) |
 
 ## Default Filename and Trace Level
-| Constant          | Value           | Description         |
-| :---------------- | :-------------- | :------------------ |
-| defaultFilename   | logs            | Default file name   |
-| defaultTraceLevel | DebugTraceLevel | Default trace level |
+| Constant   | Value           | Description         |
+| :--------- | :-------------- | :------------------ |
+| filename   | default.log     | Default filename    |
+| traceLevel | DebugTraceLevel | Default trace level |
 
 ## Usage
 ```go
@@ -60,7 +60,7 @@ import (
 
 func main() {
 	//optional: initialize logger
-	log.Initialize("new_log_file", log.DebugTraceLevel)
+	log.Initialize("filename.log", log.DebugTraceLevel)
 
 	//log debug message
 	log.Debug("This is a debug message.")
@@ -95,9 +95,5 @@ func main() {
 
 ```
 
-## Terminal Output
-![Terminal Output](/images/terminal_output.png)
-
 ## Terminal Output With [log-viewer](https://github.com/ermanimer/log-viewer)
 ![Terminal Output](/images/terminal_output_with_log-viewer.png)
-
