@@ -3,6 +3,7 @@ package log
 import (
 	"fmt"
 	"os"
+	"runtime"
 	"strings"
 	"sync"
 	"time"
@@ -41,10 +42,15 @@ const (
 	fileMode = 0644
 )
 
+//default maximum caller function count
+const (
+	maxCallerFunctionCount = 16
+)
+
 //default filename and default trace level
 const (
-	defaultFilename   = "default.log"
-	defaultTraceLevel = DebugTraceLevel
+	filename   = "default.log"
+	traceLevel = DebugTraceLevel
 )
 
 type logger struct {
@@ -115,8 +121,8 @@ func checkInitialization() {
 	if instance == nil {
 		//create instance with default parameters
 		instance = &logger{
-			filename:   defaultFilename,
-			traceLevel: defaultTraceLevel,
+			filename:   filename,
+			traceLevel: traceLevel,
 			mutex:      &sync.Mutex{},
 		}
 	}
@@ -128,6 +134,14 @@ func createMessageFormat(values ...interface{}) string {
 	//trim last coma and white space
 	messageFormat = strings.Trim(messageFormat, ", ")
 	return messageFormat
+}
+
+func getCallerFunction() string {
+	programCounters := make([]uintptr, maxCallerFunctionCount)
+	callerCount := runtime.Callers(0, programCounters)
+	callerFunctionPointer, _, _, _ := runtime.Caller(callerCount - 4)
+	callerFunction := runtime.FuncForPC(callerFunctionPointer).Name()
+	return callerFunction
 }
 
 func log(traceLevel int, prefix string, messageFormat string, values ...interface{}) {
@@ -145,7 +159,7 @@ func log(traceLevel int, prefix string, messageFormat string, values ...interfac
 	//replace new line characters with white spaces
 	message = strings.Replace(message, newLine, " ", -1)
 	//create formatted message
-	message = fmt.Sprintf("[%s][%s]: %s%s", time.Now().Format(timeFormat), prefix, message, newLine)
+	message = fmt.Sprintf("[%s][%s][%s][%s]%s", time.Now().Format(timeFormat), prefix, getCallerFunction(), message, newLine)
 	//open log file
 	logFile, err := os.OpenFile(instance.filename, os.O_CREATE|os.O_WRONLY|os.O_APPEND, fileMode)
 	if err != nil {
