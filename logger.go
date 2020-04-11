@@ -158,5 +158,5 @@ func log(traceLevel int, prefix string, messageFormat string, values ...interfac
 }
 
 func printError(message string) {
-	fmt.Println(fmt.Sprintf("go_logger: %s%s", message, newLine))
+	fmt.Printf("logger: %s%s", message, newLine)
 }
