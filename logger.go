@@ -42,11 +42,6 @@ const (
 	fileMode = 0644
 )
 
-//default maximum caller function count
-const (
-	maxCallerFunctionCount = 16
-)
-
 //default filename and default trace level
 const (
 	filename   = "default.log"
@@ -137,9 +132,7 @@ func createMessageFormat(values ...interface{}) string {
 }
 
 func getCallerFunction() string {
-	programCounters := make([]uintptr, maxCallerFunctionCount)
-	callerCount := runtime.Callers(0, programCounters)
-	callerFunctionPointer, _, _, _ := runtime.Caller(callerCount - 4)
+	callerFunctionPointer, _, _, _ := runtime.Caller(3)
 	callerFunction := runtime.FuncForPC(callerFunctionPointer).Name()
 	return callerFunction
 }
