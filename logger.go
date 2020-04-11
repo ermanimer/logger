@@ -10,11 +10,11 @@ import (
 
 //prefixes
 const (
-	debugPrefix   = "Debug  "
-	infoPrefix    = "Info   "
+	debugPrefix   = "Debug"
+	infoPrefix    = "Info"
 	warningPrefix = "Warning"
-	errorPrefix   = "Error  "
-	fatalPrefix   = "Fatal  "
+	errorPrefix   = "Error"
+	fatalPrefix   = "Fatal"
 )
 
 //trace levels
