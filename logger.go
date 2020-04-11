@@ -130,9 +130,11 @@ func log(traceLevel int, prefix string, messageFormat string, values ...interfac
 	instance.mutex.Lock()
 	defer instance.mutex.Unlock()
 
-	//create formatted message
+	//create message
 	message := fmt.Sprintf(messageFormat, values...)
+	//replace new line characters with white spaces
 	message = strings.Replace(message, newLine, " ", -1)
+	//create formatted message
 	formattedMessage := fmt.Sprintf("[%s][%s]: %s%s", time.Now().Format(timeFormat), prefix, message, newLine)
 
 	//open log file
