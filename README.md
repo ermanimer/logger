@@ -66,7 +66,7 @@ func main() {
 	log.Debug("This is a debug message.")
 
 	//log formatted debug message
-	log.Debugf("This is a %v debug message", "formatted")
+	log.Debugf("This is a %v debug message.", "formatted")
 
 	//log info message
 	log.Info("This is an info message.")
