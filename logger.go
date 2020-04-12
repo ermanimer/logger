@@ -134,6 +134,9 @@ func createMessageFormat(values ...interface{}) string {
 func getCallerFunction() string {
 	callerFunctionPointer, _, _, _ := runtime.Caller(3)
 	callerFunction := runtime.FuncForPC(callerFunctionPointer).Name()
+	//trim package path
+	callerFunctionParts := strings.Split(callerFunction, "/")
+	callerFunction = callerFunctionParts[len(callerFunctionParts)-1]
 	return callerFunction
 }
 
