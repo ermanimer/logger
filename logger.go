@@ -20,7 +20,7 @@ const (
 
 //trace levels
 const (
-	DebugTraceLevel = iota
+	DebugTraceLevel = iota + 1
 	InfoTraceLevel
 	WarningTraceLevel
 	ErrorTraceLevel
@@ -48,17 +48,15 @@ const (
 	traceLevel = DebugTraceLevel
 )
 
-type TraceLevel int
-
 type logger struct {
 	filename   string
-	traceLevel TraceLevel
+	traceLevel int
 	mutex      *sync.Mutex
 }
 
 var instance *logger
 
-func Initialize(filename string, traceLevel TraceLevel) {
+func Initialize(filename string, traceLevel int) {
 	//create instance with parameters
 	instance = &logger{
 		filename:   filename,
@@ -142,7 +140,7 @@ func getCallerFunction() string {
 	return callerFunction
 }
 
-func log(traceLevel TraceLevel, prefix string, messageFormat string, values ...interface{}) {
+func log(traceLevel int, prefix string, messageFormat string, values ...interface{}) {
 	//check initialization
 	checkInitialization()
 	//check trace level
