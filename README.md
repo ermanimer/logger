@@ -23,11 +23,11 @@ go get -u github.com/ermanimer/logger
 ## Trace Levels
 | Constant          | Value  | Description                      |
 | :------------     | :----: | :------------------------------- |
-| DebugTraceLevel   | 0      | Trace level for debug messages   |
-| InfoTraceLevel    | 1      | Trace level for info messages    |
-| WarningTraceLevel | 2      | Trace level for warning messages |
-| ErrorTraceLevel   | 3      | Trace level for error messages   |
-| FatalTraceLevel   | 4      | Trace level for fatal messages   |
+| DebugTraceLevel   | 1      | Trace level for debug messages   |
+| InfoTraceLevel    | 2      | Trace level for info messages    |
+| WarningTraceLevel | 3      | Trace level for warning messages |
+| ErrorTraceLevel   | 4      | Trace level for error messages   |
+| FatalTraceLevel   | 5      | Trace level for fatal messages   |
 
 ## Time Format
 | Constant   | Value        | Description |
