@@ -4,7 +4,7 @@ Go logger
 ![Go](https://github.com/ermanimer/logger/workflows/Go/badge.svg)
 
 ## Features
-logger writes logs safely to specified log file. Use [log-viewer](https://github.com/ermanimer/log-viewer) for best viewing experince.
+logger writes logs safely to specified log file. Use [log_viewer](https://github.com/ermanimer/log_viewer) for best viewing experince.
 
 ## Installation
 ```bash
