@@ -159,19 +159,19 @@ func log(traceLevel int, prefix string, messageFormat string, values ...interfac
 	//open log file
 	logFile, err := os.OpenFile(instance.filename, os.O_CREATE|os.O_WRONLY|os.O_APPEND, fileMode)
 	if err != nil {
-		printError("Opening log file failed!")
+		printError("opening log file failed")
 		return
 	}
 	defer func() {
 		err := logFile.Close()
 		if err != nil {
-			printError("Closing log file failed!")
+			printError("closing log file failed")
 		}
 	}()
 	//write to log file
 	_, err = logFile.WriteString(message)
 	if err != nil {
-		printError("Writing to log file failed!")
+		printError("writing to log file failed")
 	}
 }
 
