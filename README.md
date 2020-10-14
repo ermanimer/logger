@@ -2,6 +2,7 @@
 Go logger
 
 ![Go](https://github.com/ermanimer/logger/workflows/Go/badge.svg)
+[![Go Report Card](https://goreportcard.com/badge/github.com/ermanimer/logger)](https://goreportcard.com/report/github.com/ermanimer/logger)
 
 ## Features
 logger writes logs safely to specified log file. Use [log_viewer](https://github.com/ermanimer/log_viewer) for best viewing experince.
