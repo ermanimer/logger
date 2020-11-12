@@ -5,7 +5,7 @@ Go logger
 [![Go Report Card](https://goreportcard.com/badge/github.com/ermanimer/logger)](https://goreportcard.com/report/github.com/ermanimer/logger)
 
 ## Features
-logger writes logs safely to specified log file. Use [log_viewer](https://github.com/ermanimer/log_viewer) for best viewing experince.
+logger writes logs to the specified log file. Use [log_viewer](https://github.com/ermanimer/log_viewer) for the best viewing experince.
 
 ## Installation
 ```bash
@@ -13,85 +13,74 @@ go get -u github.com/ermanimer/logger
 ```
 
 ## Prefixes
-| Constant      | Value   | Description                 |
-| :------------ | :------ | :-------------------------- |
-| debugPrefix   | Debug   | Prefix for debug messages   |
-| infoPrefix    | Info    | Prefix for info messages    |
-| warningPrefix | Warning | Prefix for warning messages |
-| errorPrefix   | Error   | Prefix for error messages   |
-| fatalPrefix   | Fatal   | Prefix for fatal messages   |
+|Constant     |Value  |
+|:------------|:-----:|
+|debugPrefix  |Debug  |
+|infoPrefix   |Info   |
+|warningPrefix|Warning|
+|errorPrefix  |Error  |
+|fatalPrefix  |Fatal  |
 
 ## Trace Levels
-| Constant          | Value  | Description                      |
-| :------------     | :----: | :------------------------------- |
-| DebugTraceLevel   | 1      | Trace level for debug messages   |
-| InfoTraceLevel    | 2      | Trace level for info messages    |
-| WarningTraceLevel | 3      | Trace level for warning messages |
-| ErrorTraceLevel   | 4      | Trace level for error messages   |
-| FatalTraceLevel   | 5      | Trace level for fatal messages   |
+|Constant         |Value |
+|:----------------|:----:|
+|DebugTraceLevel  |1     |
+|InfoTraceLevel   |2     |
+|WarningTraceLevel|3     |
+|ErrorTraceLevel  |4     |
+|FatalTraceLevel  |5     |
 
 ## Time Format
-| Constant   | Value        | Description |
-| :--------- | :----------: | :---------- |
-| timeFormat | time.RFC3339 | Time format |
-
-## New Line
-| Constant | Value | Description                  |
-| :------- | :-----| :--------------------------- |
-| newLine  | \n    | New line character for Linux |
+|Constant  |Value       |
+|:---------|:----------:|
+|timeFormat|time.RFC3339|
 
 ## FileMode
-| Constant | Value | Description           |
-| :------- | :-----| :-------------------- |
-| fileMode | 0644  | File mode (rw-r--r--) |
-
-## Default Filename and Trace Level
-| Constant   | Value           | Description         |
-| :--------- | :-------------- | :------------------ |
-| filename   | default.log     | Default filename    |
-| traceLevel | DebugTraceLevel | Default trace level |
+|Constant|Value           |
+|:-------|:--------------:|
+|fileMode|0644 (rw-r--r--)|
 
 ## Usage
 ```go
 package main
 
 import (
-	log "github.com/ermanimer/logger"
+	"github.com/ermanimer/logger"
 )
 
 func main() {
-	//optional: initialize logger
-	log.Initialize("filename.log", log.DebugTraceLevel)
+	//initialize logger
+	l := logger.NewLogger("filename.log", logger.DebugTraceLevel)
 
 	//log debug message
-	log.Debug("This is a debug message.")
+	l.Debug("This is a debug message.")
 
 	//log formatted debug message
-	log.Debugf("This is a %v debug message.", "formatted")
+	l.Debugf("This is a %v debug message.", "formatted")
 
 	//log info message
-	log.Info("This is an info message.")
+	l.Info("This is an info message.")
 
 	//log formatted info message
-	log.Infof("This is a %v info message.", "formatted")
+	l.Infof("This is a %v info message.", "formatted")
 
 	//log warning message
-	log.Warning("This is a warning message.")
+	l.Warning("This is a warning message.")
 
 	//log formatted warning message
-	log.Warningf("This is a %v warning message.", "formatted")
+	l.Warningf("This is a %v warning message.", "formatted")
 
 	//log error message
-	log.Error("This is an error message!")
+	l.Error("This is an error message!")
 
 	//log formatted error message
-	log.Errorf("This is a %v error message!", "formatted")
+	l.Errorf("This is a %v error message!", "formatted")
 
 	//log fatal message and call os.Exit(1)
-	log.Fatal("This is a fatal message!")
+	l.Fatal("This is a fatal message!")
 
 	//log formatted fatal message and call os.Exit(1)
-	log.Fatalf("This is a %v fatal message!", "formatted")
+	l.Fatalf("This is a %v fatal message!", "formatted")
 }
 
 ```
