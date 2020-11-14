@@ -45,44 +45,43 @@ go get -u github.com/ermanimer/logger
 package main
 
 import (
-	"github.com/ermanimer/logger"
+	"github.com/ermanimer/logger/v2"
 )
 
 func main() {
 	//initialize logger
-	l := logger.NewLogger("filename.log", logger.DebugTraceLevel)
+	l := logger.NewLogger("default.log", logger.DebugTraceLevel)
 
 	//log debug message
-	l.Debug("This is a debug message.")
+	l.Debug("this is a debug message")
 
 	//log formatted debug message
-	l.Debugf("This is a %v debug message.", "formatted")
+	l.Debugf("this is a %v debug message", "formatted")
 
 	//log info message
-	l.Info("This is an info message.")
+	l.Info("this is an info message")
 
 	//log formatted info message
-	l.Infof("This is a %v info message.", "formatted")
+	l.Infof("this is a %v info message", "formatted")
 
 	//log warning message
-	l.Warning("This is a warning message.")
+	l.Warning("this is a warning message")
 
 	//log formatted warning message
-	l.Warningf("This is a %v warning message.", "formatted")
+	l.Warningf("this is a %v warning message", "formatted")
 
 	//log error message
-	l.Error("This is an error message!")
+	l.Error("this is an error message")
 
 	//log formatted error message
-	l.Errorf("This is a %v error message!", "formatted")
+	l.Errorf("this is a %v error message", "formatted")
 
 	//log fatal message and call os.Exit(1)
-	l.Fatal("This is a fatal message!")
+	l.Fatal("this is a fatal message")
 
 	//log formatted fatal message and call os.Exit(1)
-	l.Fatalf("This is a %v fatal message!", "formatted")
+	l.Fatalf("this is a %v fatal message", "formatted")
 }
-
 ```
 
 ## Terminal Output With [log-viewer](https://github.com/ermanimer/log-viewer)
