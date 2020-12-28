@@ -40,6 +40,12 @@ go get -u github.com/ermanimer/logger
 |:-------|:--------------:|
 |fileMode|0644 (rw-r--r--)|
 
+## Default Parameters
+|Parameter        |Value          |
+|:----------------|:-------------:|
+|defaultFilename  |default.log    |
+|defaultTraceLevel|DebugTraceLevel|
+
 ## Usage
 ```go
 package main
@@ -49,8 +55,11 @@ import (
 )
 
 func main() {
-	//initialize logger
-	l := logger.NewLogger("default.log", logger.DebugTraceLevel)
+	//create a logger with DefaultLogger function
+	l := logger.DefaultLogger()
+	
+	//or with NewLoggerFunction
+	//l := logger.NewLogger("default.log", logger.DebugTraceLevel)
 
 	//log debug message
 	l.Debug("this is a debug message")
