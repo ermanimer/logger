@@ -36,10 +36,24 @@ const (
 	fileMode = 0644
 )
 
+//default parameters
+const (
+	defaultFilename   = "default.log"
+	defaultTraceLevel = DebugTraceLevel
+)
+
 type Logger struct {
 	Filename   string
 	TraceLevel int
 	mutex      *sync.Mutex
+}
+
+func DefaultLogger() *Logger {
+	return &Logger{
+		Filename:   defaultFilename,
+		TraceLevel: defaultTraceLevel,
+		mutex:      &sync.Mutex{},
+	}
 }
 
 func NewLogger(filename string, traceLevel int) *Logger {
