@@ -129,9 +129,9 @@ func (l *Logger) log(traceLevel int, prefix string, messageFormat string, values
 	//create message
 	message := fmt.Sprintf(messageFormat, values...)
 	//replace new line characters with white spaces
-	message = strings.Replace(message, newLine, " ", -1)
+	message = strings.Replace(message, "\n", " ", -1)
 	//create formatted message
-	message = fmt.Sprintf("[%s][%s][%s]%s", time.Now().Format(timeFormat), prefix, message, newLine)
+	message = fmt.Sprintf("[%s][%s][%s]\n", time.Now().Format(timeFormat), prefix, message)
 	//open log file
 	logFile, err := os.OpenFile(l.Filename, os.O_CREATE|os.O_WRONLY|os.O_APPEND, fileMode)
 	if err != nil {
